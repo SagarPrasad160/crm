@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios";
 import AuthContext from "./AuthContext";
 
@@ -37,21 +37,19 @@ export function ServicesProvider({ children }) {
   };
 
   const getServices = async () => {
-    if (user) {
-      try {
-        const res = await axios.get(
-          `http://localhost:5000/api/users/${user.id}/services`
-        );
-        setServices({
-          ...services,
-          servicesData: [...res.data],
-        });
-      } catch (error) {
-        setServices({
-          ...services,
-          error,
-        });
-      }
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/users/${user.id}/services`
+      );
+      setServices({
+        ...services,
+        servicesData: [...res.data],
+      });
+    } catch (error) {
+      setServices({
+        ...services,
+        error,
+      });
     }
   };
 
@@ -71,6 +69,11 @@ export function ServicesProvider({ children }) {
       });
     }
   };
+
+  useEffect(() => {
+    getServices();
+    //eslint-disable-next-line
+  }, [user]);
 
   return (
     <ServicesContext.Provider
