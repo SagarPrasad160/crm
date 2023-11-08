@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -15,9 +15,13 @@ function Signin() {
 
   const { loginUser, isAuthenticated } = useContext(AuthContext);
 
-  if (isAuthenticated) {
-    navigate("/");
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      setTimeout(() => {
+        navigate("/");
+      }, 0);
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleChange = (e) => {
     setFormData({

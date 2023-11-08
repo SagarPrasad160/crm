@@ -6,7 +6,7 @@ const ServicesContext = createContext();
 
 export function ServicesProvider({ children }) {
   const [services, setServices] = useState({
-    userServices: [],
+    servicesData: [],
     error: null,
   });
 
@@ -21,16 +21,14 @@ export function ServicesProvider({ children }) {
       },
     };
     try {
-      const res = await axios.post(
+      await axios.post(
         `http://localhost:5000/api/users/${user.id}/services`,
-        service,
+        { ...service, user: user.id },
         config
       );
-      setServices({
-        ...services,
-        servicesData: [...services.servicesData, ...res.data],
-      });
+      getServices();
     } catch (error) {
+      console.log(error);
       setServices({
         ...services,
         error,
@@ -39,19 +37,21 @@ export function ServicesProvider({ children }) {
   };
 
   const getServices = async () => {
-    try {
-      const res = await axios.get(
-        `http://localhost:5000/api/users/${user.id}/services`
-      );
-      setServices({
-        ...services,
-        servicesData: [...res.data],
-      });
-    } catch (error) {
-      setServices({
-        ...services,
-        error,
-      });
+    if (user) {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/users/${user.id}/services`
+        );
+        setServices({
+          ...services,
+          servicesData: [...res.data],
+        });
+      } catch (error) {
+        setServices({
+          ...services,
+          error,
+        });
+      }
     }
   };
 
