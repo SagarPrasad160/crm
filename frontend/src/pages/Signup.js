@@ -3,17 +3,20 @@ import { useState, useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 
-function Signin() {
+function Signup() {
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
+    confirmPassword: "",
+    address: "",
   });
 
   const navigate = useNavigate();
 
-  const { email, password } = formData;
+  const { name, email, password, confirmPassword, address } = formData;
 
-  const { loginUser, isAuthenticated } = useContext(AuthContext);
+  const { registerUser, isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -33,7 +36,7 @@ function Signin() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await loginUser(formData);
+      await registerUser(formData);
     } catch (error) {
       console.log(error);
     }
@@ -41,14 +44,31 @@ function Signin() {
 
   return (
     <div>
-      <h1>User Signin</h1>
+      <h1>User Signup</h1>
       <form onSubmit={handleSubmit}>
+        <div>
+          <input
+            type="name"
+            placeholder="name"
+            name="name"
+            value={name}
+            onChange={handleChange}
+          />
+        </div>
         <div>
           <input
             type="email"
             placeholder="email"
             name="email"
             value={email}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <textarea
+            placeholder="address"
+            name="address"
+            value={address}
             onChange={handleChange}
           />
         </div>
@@ -61,12 +81,21 @@ function Signin() {
             onChange={handleChange}
           />
         </div>
+        <div>
+          <input
+            type="password"
+            placeholder="confirm password"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={handleChange}
+          />
+        </div>
 
-        <button type="submit">Sign In</button>
-        <Link to="/signup">Sign Up</Link>
+        <button type="submit">Sign Up</button>
+        <Link to="/signin">Sign In</Link>
       </form>
     </div>
   );
 }
 
-export default Signin;
+export default Signup;
