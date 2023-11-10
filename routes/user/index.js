@@ -25,11 +25,11 @@ router.get("/:userId/services", requireAuth, async (req, res) => {
 //@des submit a service
 // @access Private
 router.post("/:userId/services", requireAuth, async (req, res) => {
-  const { type, charge, user } = req.body;
+  const { type, charge, user, desc } = req.body;
   try {
     await pool.execute(
-      "INSERT INTO services(`type`, `charge`, `user`, `createdAt`) VALUES (?, ?, ?, CURRENT_TIMESTAMP)",
-      [type, charge, user]
+      "INSERT INTO services(`type`, `charge`, `user`,`desc`, `createdAt`) VALUES (?, ?, ?,?, CURRENT_TIMESTAMP)",
+      [type, charge, user, desc]
     );
     res.json("Service added successfully!");
   } catch (error) {

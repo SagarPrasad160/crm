@@ -32,6 +32,10 @@ function Signin() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!email || !password) {
+      alert("please provide email and password both!");
+      return;
+    }
     try {
       await loginUser(formData);
     } catch (error) {

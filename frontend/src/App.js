@@ -11,12 +11,14 @@ import Signup from "./pages/Signup";
 import { AuthProvider } from "./context/AuthContext";
 import { ServicesProvider } from "./context/ServicesContext";
 
+import "./App.css";
+
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <ServicesProvider>
-          <div className="App">
+          <div>
             <Routes>
               <Route path="/users" element={<UsersList />} />
               <Route path="/users/add" element={<AddUser />} />

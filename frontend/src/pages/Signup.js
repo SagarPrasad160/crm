@@ -35,6 +35,14 @@ function Signup() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!name || !email || !address || !password || !confirmPassword) {
+      alert("All fields are required!");
+      return;
+    }
+    if (password !== confirmPassword) {
+      alert("Both Passwords must match");
+      return;
+    }
     try {
       await registerUser(formData);
     } catch (error) {

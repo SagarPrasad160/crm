@@ -5,20 +5,19 @@ import AuthContext from "../context/AuthContext";
 import ServicesContext from "../context/ServicesContext";
 
 import Spinner from "../components/Spinner";
+import Navbar from "../components/Navbar";
+import Cards from "../components/Cards";
 
 function Home() {
   const [service, setService] = useState({
     type: "",
     charge: "",
+    desc: "",
   });
-  const { type, charge } = service;
-  const { isAuthenticated, user, logoutUser } = useContext(AuthContext);
+  const { type, charge, desc } = service;
+  const { isAuthenticated, user } = useContext(AuthContext);
   const { addService, getServices, services } = useContext(ServicesContext);
   const navigate = useNavigate();
-
-  const handleClick = () => {
-    logoutUser();
-  };
 
   const handleChange = (e) => {
     setService({
@@ -43,13 +42,22 @@ function Home() {
   if (user) {
     return (
       <div>
-        <h1 style={{ textAlign: "center" }}>Welcome to Home Page</h1>
-        <h2>Hi, {user.name}</h2>
-        <button onClick={handleClick}>Logout</button>
-        <form style={{ marginTop: "20px" }} onSubmit={handleSubmit}>
-          <div>
+        <Navbar />
+        <Cards />
+
+        <form
+          style={{ marginTop: "20px", textAlign: "center" }}
+          onSubmit={handleSubmit}
+          className="w-25 mx-auto"
+        >
+          <div className="mb-2">
             <label>Select a Service: </label>
-            <select value={type} name="type" onChange={handleChange}>
+            <select
+              className="form-control"
+              value={type}
+              name="type"
+              onChange={handleChange}
+            >
               <option value="">-- Select a Service Type --</option>
               <option>Web Design</option>
               <option>SEO</option>
@@ -57,26 +65,45 @@ function Home() {
               <option>Graphic Design</option>
             </select>
           </div>
-          <div>
+          <div className="mb-2">
             <label>Charges in $: </label>
             <input
               type="number"
               name="charge"
               value={charge || ""}
               onChange={handleChange}
+              className="form-control"
             />
           </div>
-          <button type="submit">Add Service</button>
+          <div className="mb-2">
+            <label>Desciption</label>
+            <textarea
+              className="form-control"
+              placeholder="description..."
+              name="desc"
+              value={desc}
+              onChange={handleChange}
+            />
+          </div>
+          <button className="btn btn-secondary" type="submit">
+            + Add Service
+          </button>
         </form>
-        <div>
+        <div className="mt-5 w-50 mx-auto">
           {services.servicesData.length > 0 &&
             services.servicesData.map((service) => {
               return (
-                <div key={service.id}>
-                  <h2>{service.type}</h2>
-                  <h3>${service.charge}</h3>
-                  <hr />
-                </div>
+                <ul className="list-group" key={service.id}>
+                  <div className="list-group-item">
+                    <div className="d-flex w-100 justify-content-between">
+                      <h5 className="mb-1">{service.type}</h5>
+                      <span className="bg-success text-white rounded-circle p-1">
+                        ${service.charge}
+                      </span>
+                    </div>
+                    <p className="mb-1">{service.desc}</p>
+                  </div>
+                </ul>
               );
             })}
         </div>
