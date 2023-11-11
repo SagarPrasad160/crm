@@ -3,6 +3,9 @@ import { useState, useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 
+import { GiArchiveRegister } from "react-icons/gi";
+import { CiLogin } from "react-icons/ci";
+
 function Signup() {
   const [formData, setFormData] = useState({
     name: "",
@@ -51,56 +54,63 @@ function Signup() {
   };
 
   return (
-    <div>
-      <h1>User Signup</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="name"
-            placeholder="name"
-            name="name"
-            value={name}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
+    <div className="sign-in text-white">
+      <form
+        className="mt-4 auth-form w-50 mx-auto rounded-3 shadow-lg p-3"
+        onSubmit={handleSubmit}
+      >
+        <div className="mb-3">
+          <label className="form-label">Email</label>
           <input
             type="email"
             placeholder="email"
             name="email"
+            className="form-control"
             value={email}
             onChange={handleChange}
           />
         </div>
-        <div>
-          <textarea
-            placeholder="address"
-            name="address"
-            value={address}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
+        <div className="mb-3">
+          <label className="form-label">Password</label>
           <input
             type="password"
             placeholder="password"
             name="password"
+            className="form-control"
             value={password}
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className="mb-3">
+          <label className="form-label">Password</label>
           <input
             type="password"
             placeholder="confirm password"
             name="confirmPassword"
+            className="form-control"
             value={confirmPassword}
             onChange={handleChange}
           />
         </div>
-
-        <button type="submit">Sign Up</button>
-        <Link to="/signin">Sign In</Link>
+        <div className="mb-3">
+          <label className="form-label">Address</label>
+          <textarea
+            className="form-control"
+            value={address}
+            onChange={address}
+          ></textarea>
+        </div>
+        <div className="d-flex flex-wrap justify-content-center">
+          <button
+            className="btn btn-primary m-1 text-white my-auto"
+            type="submit"
+          >
+            <GiArchiveRegister className="fs-4" /> Create Account
+          </button>
+          <Link className="btn btn-secondary" to="/signin">
+            <CiLogin className="fs-4" /> Signin instead
+          </Link>
+        </div>
       </form>
     </div>
   );
