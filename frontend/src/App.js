@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import NewService from "./pages/NewService";
-import Home from "./pages/Home";
-import Signin from "./pages/Signin";
-import Signup from "./pages/Signup";
+import NewService from "./pages/user/NewService";
+import Home from "./pages/user/Home";
+import Signin from "./pages/auth/Signin";
+import Signup from "./pages/auth/Signup";
 import Navbar from "./components/Navbar";
-import Profile from "./pages/Profile";
+import Profile from "./pages/user/Profile";
 
 import { AuthProvider } from "./context/AuthContext";
 import { ServicesProvider } from "./context/ServicesContext";

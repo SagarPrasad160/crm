@@ -1,8 +1,21 @@
+.App {
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr 9fr;
+  grid-template-areas:
+    "navbar"
+    "content";
+}
+
+.home {
+  grid-area: content;
+}
+
 .navbar {
-  background-color: #191c24;
-  color: white;
   grid-area: navbar;
 }
+
 .modal-wrapper,
 .navmodal {
   position: absolute;
@@ -39,17 +52,87 @@
   background-position: center;
 }
 
-.App {
-  height: 100vh;
-  width: 100%;
-  display: grid;
-  grid-template-rows: 1fr 9fr;
-  grid-template-areas:
-    "navbar"
-    "content";
-}
 .auth-form {
   background-color: #191c24;
+}
+
+body {
+  background: #eee;
+}
+
+.profile {
+  border: none;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.profile:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background-color: #a8cf99;
+  transform: scaleY(1);
+  transition: all 0.5s;
+  transform-origin: bottom;
+}
+
+.profile:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background-color: #599f3d;
+  transform: scaleY(0);
+  transition: all 0.5s;
+  transform-origin: bottom;
+}
+
+.card:hover::after {
+  transform: scaleY(1);
+}
+
+.fonts {
+  font-size: 11px;
+}
+
+.social-list {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  padding: 0;
+}
+
+.social-list li {
+  padding: 10px;
+  color: #599f3d;
+  font-size: 19px;
+}
+
+.buttons button:nth-child(1) {
+  border: 1px solid #599f3d !important;
+  color: #599f3d;
+  height: 40px;
+}
+
+.buttons button:nth-child(1):hover {
+  border: 1px solid #599f3d !important;
+  color: #fff;
+  height: 40px;
+  background-color: #599f3d;
+}
+
+.buttons button:nth-child(2) {
+  border: 1px solid #599f3d !important;
+  background-color: #599f3d;
+  color: #fff;
+  height: 40px;
 }
 
 @media (min-width: 880px) {

@@ -38,13 +38,15 @@ export function ServicesProvider({ children }) {
 
   const getServices = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:5000/api/users/${user.id}/services`
-      );
-      setServices({
-        ...services,
-        servicesData: [...res.data],
-      });
+      if (user) {
+        const res = await axios.get(
+          `http://localhost:5000/api/users/${user.id}/services`
+        );
+        setServices({
+          ...services,
+          servicesData: [...res.data],
+        });
+      }
     } catch (error) {
       setServices({
         ...services,

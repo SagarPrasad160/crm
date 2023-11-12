@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import ServicesContext from "../context/ServicesContext";
+import ServicesContext from "../../context/ServicesContext";
 
 function NewService() {
   const [service, setService] = useState({

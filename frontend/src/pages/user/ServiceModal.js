@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 
-import ServicesContext from "../context/ServicesContext";
+import ServicesContext from "../../context/ServicesContext";
 
 function ServiceModal({ setShowModal, user }) {
   const [service, setService] = useState({
@@ -30,7 +30,7 @@ function ServiceModal({ setShowModal, user }) {
         className="btn btn-danger hide-modal"
         onClick={() => setShowModal(false)}
       >
-        <i class="fa-solid fa-xmark"></i>
+        <i className="fa-solid fa-xmark"></i>
       </button>
       <div className="w-50">
         <h1 className="text-white">Service for {user.name}</h1>
@@ -75,7 +75,7 @@ function ServiceModal({ setShowModal, user }) {
             className="btn btn-primary text-white w-100 rounded-3 mt-2"
             type="submit"
           >
-            <i class="fa-solid fa-plus"></i> Add Service
+            <i className="fa-solid fa-plus"></i> Add Service
           </button>
         </form>
       </div>

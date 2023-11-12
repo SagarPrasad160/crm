@@ -5,7 +5,7 @@ import AuthContext from "../context/AuthContext";
 import { CiLogout } from "react-icons/ci";
 import { FaUserCircle } from "react-icons/fa";
 
-import ServiceModal from "../pages/ServiceModal";
+import ServiceModal from "../pages/user/ServiceModal";
 import NavModal from "./NavModal";
 
 function Navbar() {
@@ -36,7 +36,7 @@ function Navbar() {
     <div>
       {showModal && <ServiceModal user={user} setShowModal={setShowModal} />}
       {showNavModal && <NavModal setShowNavModal={setShowNavModal} />}
-      <nav className="navbar navbar-expand-lg bg-body-dark d-flex justify-content-between">
+      <nav className="navbar navbar-expand-lg bg-dark text-white d-flex justify-content-between">
         {user && (
           <div className="p-2 d-flex align-items-center">
             <Link to="/" className="navbar-brand text-white">
@@ -79,7 +79,7 @@ function Navbar() {
               >
                 {user.name} <i className="fa-solid fa-user"></i>
               </p>
-              <ul class="dropdown-menu p-1">
+              <ul className="dropdown-menu p-1">
                 <li className="mb-1">
                   <Link
                     className="btn btn-secondary text-white w-100"

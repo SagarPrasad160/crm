@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 
-import AuthContext from "../context/AuthContext";
+import AuthContext from "../../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 
 import { GiArchiveRegister } from "react-icons/gi";
