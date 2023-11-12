@@ -11,7 +11,9 @@
   background-position: center;
 }
 
-.home {
+.home,
+.sign-in,
+.sign-up {
   grid-area: content;
 }
 
@@ -45,19 +47,6 @@
   top: 30px;
   right: 30px;
   cursor: pointer;
-}
-
-.sign-in,
-.sign-up {
-  grid-area: content;
-}
-
-.auth-form {
-  background-color: #191c24;
-}
-
-body {
-  background: #eee;
 }
 
 .profile {
@@ -144,6 +133,9 @@ body {
 @media (max-width: 880px) {
   .modal-wrapper {
     display: none;
+  }
+  h1 {
+    text-align: center;
   }
 }
 

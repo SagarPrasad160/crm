@@ -1,8 +1,6 @@
 import { useState, useContext, useEffect } from "react";
-
 import AuthContext from "../../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
-
 import { CiLogin } from "react-icons/ci";
 import { GiArchiveRegister } from "react-icons/gi";
 
@@ -36,7 +34,7 @@ function Signin() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!email || !password) {
-      alert("please provide email and password both!");
+      alert("Please provide email and password both!");
       return;
     }
     try {
@@ -49,26 +47,32 @@ function Signin() {
   return (
     <div className="sign-in text-white">
       <form
-        className="mt-4 auth-form w-50 mx-auto rounded-3 shadow-lg p-3"
+        className="mt-4 auth-form mx-auto bg-dark rounded-3 shadow-lg p-3 col-md-6 col-lg-6"
         onSubmit={handleSubmit}
       >
         <div className="mb-3">
-          <label className="form-label">Email</label>
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
           <input
             type="email"
-            placeholder="email"
+            placeholder="Email"
             name="email"
+            id="email"
             className="form-control"
             value={email}
             onChange={handleChange}
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Password</label>
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
           <input
             type="password"
-            placeholder="password"
+            placeholder="Password"
             name="password"
+            id="password"
             className="form-control"
             value={password}
             onChange={handleChange}
@@ -81,7 +85,7 @@ function Signin() {
           >
             <CiLogin className="fs-4" /> Sign In
           </button>
-          <Link className="btn btn-secondary" to="/signup">
+          <Link className="btn btn-secondary m-1" to="/signup">
             <GiArchiveRegister className="fs-4" /> Register
           </Link>
         </div>

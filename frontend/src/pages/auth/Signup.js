@@ -1,8 +1,6 @@
 import { useState, useContext, useEffect } from "react";
-
 import AuthContext from "../../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
-
 import { GiArchiveRegister } from "react-icons/gi";
 import { CiLogin } from "react-icons/ci";
 
@@ -43,7 +41,7 @@ function Signup() {
       return;
     }
     if (password !== confirmPassword) {
-      alert("Both Passwords must match");
+      alert("Both passwords must match");
       return;
     }
     try {
@@ -56,48 +54,60 @@ function Signup() {
   return (
     <div className="sign-in text-white">
       <form
-        className="mt-4 auth-form w-50 mx-auto rounded-3 shadow-lg p-3"
+        className="mt-4 auth-form mx-auto bg-dark rounded-3 shadow-lg p-3 col-md-6 col-lg-6"
         onSubmit={handleSubmit}
       >
         <div className="mb-3">
-          <label className="form-label">Email</label>
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
           <input
             type="email"
-            placeholder="email"
+            placeholder="Email"
             name="email"
+            id="email"
             className="form-control"
             value={email}
             onChange={handleChange}
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Password</label>
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
           <input
             type="password"
-            placeholder="password"
+            placeholder="Password"
             name="password"
+            id="password"
             className="form-control"
             value={password}
             onChange={handleChange}
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Password</label>
+          <label htmlFor="confirmPassword" className="form-label">
+            Confirm Password
+          </label>
           <input
             type="password"
-            placeholder="confirm password"
+            placeholder="Confirm Password"
             name="confirmPassword"
             className="form-control"
+            id="confirmPassword"
             value={confirmPassword}
             onChange={handleChange}
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Address</label>
+          <label htmlFor="address" className="form-label">
+            Address
+          </label>
           <textarea
             className="form-control"
             value={address}
-            onChange={address}
+            onChange={handleChange}
+            id="address"
           ></textarea>
         </div>
         <div className="d-flex flex-wrap justify-content-center">
@@ -107,8 +117,8 @@ function Signup() {
           >
             <GiArchiveRegister className="fs-4" /> Create Account
           </button>
-          <Link className="btn btn-secondary" to="/signin">
-            <CiLogin className="fs-4" /> Signin instead
+          <Link className="btn btn-secondary m-1" to="/signin">
+            <CiLogin className="fs-4" /> Sign In instead
           </Link>
         </div>
       </form>
