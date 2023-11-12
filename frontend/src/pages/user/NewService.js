@@ -71,7 +71,7 @@ function NewService() {
           className="btn btn-primary text-white rounded-3 mt-2"
           type="submit"
         >
-          <i class="fa-solid fa-plus"></i> Add Service
+          <i className="fa-solid fa-plus"></i> Add Service
         </button>
       </form>
     </div>
