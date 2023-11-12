@@ -45,7 +45,7 @@ function BarChart() {
   };
 
   return (
-    <div>
+    <>
       <div className="fw-bolder chart-description">Services Usage Overview</div>
       {Object.values(data).length ? (
         <Bar data={data} options={options} />
@@ -54,7 +54,7 @@ function BarChart() {
           <img src="loader.svg" alt="loader" />
         </div>
       )}
-    </div>
+    </>
   );
 }
 

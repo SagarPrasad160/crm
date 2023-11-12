@@ -1,11 +1,14 @@
 .App {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: grid;
   grid-template-rows: 1fr 9fr;
   grid-template-areas:
     "navbar"
     "content";
+  background-image: url("./utils/auth-form-background.avif");
+  background-size: cover;
+  background-position: center;
 }
 
 .home {
@@ -47,9 +50,6 @@
 .sign-in,
 .sign-up {
   grid-area: content;
-  background-image: url("./utils/auth-form-background.avif");
-  background-size: cover;
-  background-position: center;
 }
 
 .auth-form {

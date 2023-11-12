@@ -28,11 +28,11 @@ function NewService() {
   };
 
   return (
-    <div className="m-5 p-5 border rounded-3">
+    <div className="m-5 p-5 bg-dark text-white rounded-3">
       <h1>Create a New Service</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-2">
-          <label className="form-label text-white">Select a Service</label>
+          <label className="form-label">Select a Service</label>
           <select
             className="form-control"
             name="type"
@@ -47,7 +47,7 @@ function NewService() {
           </select>
         </div>
         <div className="mb-2">
-          <label className="text-white">Charges in $ </label>
+          <label className="form-label">Charges in $ </label>
           <input
             type="number"
             name="charge"
@@ -58,7 +58,7 @@ function NewService() {
           />
         </div>
         <div className="mb-2">
-          <label className="form-label text-white">Desciption</label>
+          <label className="form-label">Desciption</label>
           <textarea
             className="form-control"
             placeholder="Service description..."

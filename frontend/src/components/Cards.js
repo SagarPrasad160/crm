@@ -9,7 +9,7 @@ function Cards() {
   return (
     <div className="my-4 p-4 row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
       <div className="col">
-        <div className="card bg-dark border shadow-lg">
+        <div className="card bg-dark shadow-lg">
           <div className="card-body text-white text-center">
             <div className="d-flex justify-content-center">
               <h5 className="card-title">
@@ -24,7 +24,7 @@ function Cards() {
       </div>
 
       <div className="col">
-        <div className="card bg-dark border shadow-lg">
+        <div className="card bg-dark shadow-lg">
           <div className="card-body text-white text-center">
             <div className="d-flex justify-content-center">
               <h5 className="card-title">
@@ -39,7 +39,7 @@ function Cards() {
       </div>
 
       <div className="col">
-        <div className="card bg-dark border shadow-lg">
+        <div className="card bg-dark shadow-lg">
           <div className="card-body text-white text-center">
             <div className="d-flex justify-content-center">
               <h5 className="card-title">
@@ -54,7 +54,7 @@ function Cards() {
       </div>
 
       <div className="col">
-        <div className="card bg-dark border shadow-lg">
+        <div className="card bg-dark shadow-lg">
           <div className="card-body text-white text-center">
             <div className="d-flex justify-content-center">
               <h5 className="card-title">
