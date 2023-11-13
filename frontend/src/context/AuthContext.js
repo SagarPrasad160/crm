@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated: false,
     token: localStorage.getItem("token") || null,
     user: null,
-    error: null,
+    errors: [],
   });
 
   const registerSuccess = (payload) => {
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
       loading: false,
       isAuthenticated: false,
       user: null,
-      error: payload,
+      errors: payload,
     });
   };
 
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      registerFail(error.response.data.msg);
+      registerFail(error.response.data);
     }
   };
 
@@ -96,11 +96,13 @@ export const AuthProvider = ({ children }) => {
         loadUser();
       }
     } catch (error) {
-      if (error.response.data.errors) {
+      console.log(error);
+      // check for errors array
+      if (Array.isArray(error.response.data.errors)) {
         registerFail(error.response.data.errors);
         return;
       }
-      registerFail(error.response.data.msg);
+      registerFail([{ msg: error.response.data.msg }]);
     }
   };
 
@@ -122,7 +124,7 @@ export const AuthProvider = ({ children }) => {
         loading: auth.loading,
         isAuthenticated: auth.isAuthenticated,
         user: auth.user,
-        error: auth.error,
+        errors: auth.errors,
         registerSuccess,
         registerUser,
         loginUser,

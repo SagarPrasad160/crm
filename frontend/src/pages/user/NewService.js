@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import ServicesContext from "../../context/ServicesContext";
 
+import { toast } from "react-toastify";
+
 function NewService() {
   const [service, setService] = useState({
     type: "",
@@ -24,6 +26,7 @@ function NewService() {
   const handleSubmit = (event) => {
     event.preventDefault();
     addService(service);
+    toast.success("Service added successfully!");
     navigate("/");
   };
 

@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 
 import ServicesContext from "../../context/ServicesContext";
 
+import { toast } from "react-toastify";
+
 function ServiceModal({ setShowModal, user }) {
   const [service, setService] = useState({
     type: "",
@@ -23,6 +25,7 @@ function ServiceModal({ setShowModal, user }) {
     e.preventDefault();
     addService(service);
     setShowModal(false);
+    toast.success("Service Added Successfully!");
   };
   return (
     <div className="modal-wrapper">

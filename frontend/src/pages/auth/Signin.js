@@ -14,7 +14,7 @@ function Signin() {
 
   const { email, password } = formData;
 
-  const { loginUser, isAuthenticated, error, clearErrors } =
+  const { loginUser, isAuthenticated, errors, clearErrors } =
     useContext(AuthContext);
 
   useEffect(() => {
@@ -65,7 +65,6 @@ function Signin() {
             value={email}
             onChange={handleChange}
           />
-          {error && <p className="text-danger">{error}</p>}
         </div>
         <div className="mb-3">
           <label htmlFor="password" className="form-label">
@@ -80,8 +79,13 @@ function Signin() {
             value={password}
             onChange={handleChange}
           />
-          {error && <p className="text-danger">{error}</p>}
         </div>
+        {errors?.length > 0 &&
+          errors.map((error, idx) => (
+            <p key={idx} className="text-danger text-center">
+              {error.msg}
+            </p>
+          ))}
         <div className="d-flex flex-wrap justify-content-center">
           <button
             className="btn btn-primary m-1 text-white my-auto"

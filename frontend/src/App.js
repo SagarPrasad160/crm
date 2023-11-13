@@ -12,6 +12,9 @@ import Billing from "./pages/user/Billing";
 import { AuthProvider } from "./context/AuthContext";
 import { ServicesProvider } from "./context/ServicesContext";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import "./App.css";
 
 function App() {
@@ -29,6 +32,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/billing" element={<Billing />} />
             </Routes>
+            <ToastContainer />
           </div>
         </ServicesProvider>
       </AuthProvider>

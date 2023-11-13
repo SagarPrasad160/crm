@@ -1,8 +1,12 @@
 import { useState, useContext, useEffect } from "react";
-import AuthContext from "../../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
+
+import AuthContext from "../../context/AuthContext";
+
 import { GiArchiveRegister } from "react-icons/gi";
 import { CiLogin } from "react-icons/ci";
+
+import { toast } from "react-toastify";
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -48,7 +52,9 @@ function Signup() {
     }
     try {
       await registerUser(formData);
+      toast.success("Account Created Successfully!");
     } catch (error) {
+      toast.warning("Something went wrong!");
       console.log(error);
     }
   };
