@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 
 import { CiLogout } from "react-icons/ci";
+import { RiBillFill } from "react-icons/ri";
 import { FaUserCircle } from "react-icons/fa";
 
 import ServiceModal from "../pages/user/ServiceModal";
@@ -86,6 +87,14 @@ function Navbar() {
                     to="/profile"
                   >
                     <FaUserCircle className="fs-4" /> Profile
+                  </Link>
+                </li>
+                <li className="mb-1">
+                  <Link
+                    className="btn btn-secondary text-white w-100"
+                    to="/billing"
+                  >
+                    <RiBillFill className="fs-4" /> Billing
                   </Link>
                 </li>
                 <li>

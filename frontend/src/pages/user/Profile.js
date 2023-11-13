@@ -1,27 +1,27 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
 import AuthContext from "../../context/AuthContext";
 
-import Spinner from "../../components/Spinner";
-
 import { BsFacebook, BsGoogle, BsInstagram, BsLinkedin } from "react-icons/bs";
 
 function Profile() {
-  const { user, isAuthenticated, loading } = useContext(AuthContext);
+  const { user, isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  if (!isAuthenticated && !loading) {
-    navigate("/sigin");
-  } else if (loading) {
-    return <Spinner />;
-  } else {
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/signin");
+    }
+  }, [isAuthenticated, navigate]);
+
+  if (user) {
     return (
       <div className="container mt-5">
         <div className="row d-flex justify-content-center">
           <div className="col-md-7">
-            <div className="card profile p-3 py-4">
+            <div className="card profile bg-dark text-white p-3 py-4">
               <div className="text-center">
                 <img
                   src="https://i.imgur.com/bDLhJiP.jpg"

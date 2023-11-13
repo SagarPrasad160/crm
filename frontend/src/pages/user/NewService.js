@@ -28,9 +28,12 @@ function NewService() {
   };
 
   return (
-    <div className="m-5 p-5 bg-dark text-white rounded-3">
-      <h1>Create a New Service</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="m-5">
+      <form
+        className="p-5 bg-dark rounded-3 text-white"
+        onSubmit={handleSubmit}
+      >
+        <h1>Create a New Service</h1>
         <div className="mb-2">
           <label className="form-label">Select a Service</label>
           <select
