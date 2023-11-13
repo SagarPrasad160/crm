@@ -17,7 +17,8 @@ function Signup() {
 
   const { name, email, password, confirmPassword, address } = formData;
 
-  const { registerUser, isAuthenticated } = useContext(AuthContext);
+  const { registerUser, isAuthenticated, clearErrors } =
+    useContext(AuthContext);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -36,6 +37,7 @@ function Signup() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    clearErrors();
     if (!name || !email || !address || !password || !confirmPassword) {
       alert("All fields are required!");
       return;
@@ -57,6 +59,20 @@ function Signup() {
         className="mt-4 auth-form mx-auto bg-dark rounded-3 shadow-lg p-3 col-md-6 col-lg-6"
         onSubmit={handleSubmit}
       >
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Name
+          </label>
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            id="name"
+            className="form-control"
+            value={name}
+            onChange={handleChange}
+          />
+        </div>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email
@@ -106,6 +122,7 @@ function Signup() {
           <textarea
             className="form-control"
             value={address}
+            name="address"
             onChange={handleChange}
             id="address"
           ></textarea>

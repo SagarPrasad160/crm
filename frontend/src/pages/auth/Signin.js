@@ -14,7 +14,8 @@ function Signin() {
 
   const { email, password } = formData;
 
-  const { loginUser, isAuthenticated } = useContext(AuthContext);
+  const { loginUser, isAuthenticated, error, clearErrors } =
+    useContext(AuthContext);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -33,6 +34,7 @@ function Signin() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    clearErrors();
     if (!email || !password) {
       alert("Please provide email and password both!");
       return;
@@ -63,6 +65,7 @@ function Signin() {
             value={email}
             onChange={handleChange}
           />
+          {error && <p className="text-danger">{error}</p>}
         </div>
         <div className="mb-3">
           <label htmlFor="password" className="form-label">
@@ -77,6 +80,7 @@ function Signin() {
             value={password}
             onChange={handleChange}
           />
+          {error && <p className="text-danger">{error}</p>}
         </div>
         <div className="d-flex flex-wrap justify-content-center">
           <button
