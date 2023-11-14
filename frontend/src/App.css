@@ -1,16 +1,23 @@
-.App {
-  height: 100%;
-  width: 100%;
-  display: grid;
-  grid-template-rows: 1fr 9fr;
-  grid-template-areas:
-    "navbar"
-    "content";
+body {
+  margin: 0;
+  height: 100vh;
   background-image: url("./utils/auth-form-background.avif");
   background-size: cover;
   background-position: center;
 }
 
+.App {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  grid-template-areas:
+    "navbar"
+    "content";
+}
+
+.users-list {
+  background-color: #a8cf99;
+}
 .home,
 .sign-in,
 .sign-up {
@@ -19,6 +26,7 @@
 
 .navbar {
   grid-area: navbar;
+  max-height: 78px;
 }
 
 .modal-wrapper,

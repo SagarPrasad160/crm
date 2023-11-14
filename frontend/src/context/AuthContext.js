@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 import setAuthToken from "../utils/setAuthToken";
 const AuthContext = createContext();
@@ -12,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     user: null,
     errors: [],
   });
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const registerSuccess = (payload) => {
     localStorage.setItem("token", payload.token);
@@ -21,6 +23,17 @@ export const AuthProvider = ({ children }) => {
       isAuthenticated: true,
       loading: false,
     });
+  };
+
+  const setIfAdmin = () => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      const decoded = jwtDecode(token);
+      setIsAdmin(decoded.isAdmin || false); // Set isAdmin from the decoded token
+    } else {
+      setIsAdmin(false);
+    }
   };
 
   const registerFail = (payload) => {
@@ -114,6 +127,7 @@ export const AuthProvider = ({ children }) => {
     setAuthToken(auth.token);
     if (auth.token) {
       loadUser();
+      setIfAdmin();
     }
     // eslint-disable-next-line
   }, [auth.token]);
@@ -124,6 +138,7 @@ export const AuthProvider = ({ children }) => {
         loading: auth.loading,
         isAuthenticated: auth.isAuthenticated,
         user: auth.user,
+        isAdmin,
         errors: auth.errors,
         registerSuccess,
         registerUser,

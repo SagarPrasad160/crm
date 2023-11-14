@@ -73,7 +73,7 @@ function Billing() {
         </div>
       </div>
       <div className="row">
-        <div className="col-sm-6 mb-3 mb-sm-0">
+        <div className="col-sm-6 mb-3 mb-sm-0 d-none">
           <div className="card bg-dark text-white">
             <div className="card-body">
               <h5 className="card-title">Special title treatment</h5>

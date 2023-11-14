@@ -4,10 +4,12 @@ const pool = require("../../db"); // Import the database connection
 
 const bcrypt = require("bcryptjs");
 
+const requireAdminAuth = require("../../middlewares/requireAdminAuth");
+
 //@route  GET /api/users
 //@des get all users
 // @access Private Admin
-router.get("/users", async (req, res) => {
+router.get("/users", requireAdminAuth, async (req, res) => {
   try {
     const [users] = await pool.execute("SELECT * FROM users");
     res.json(users);

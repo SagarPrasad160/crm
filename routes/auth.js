@@ -116,6 +116,7 @@ router.post(
       const payload = {
         user: {
           id: user.id,
+          isAdmin: user.email === "test@test.com",
         },
       };
 

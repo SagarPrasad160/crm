@@ -1,21 +1,28 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+
+import AuthContext from "../../context/AuthContext";
 
 function UsersList() {
   const [users, setUsers] = useState([]);
+  const { user, isAdmin } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (user && isAdmin) {
+      navigate("/");
+    }
     async function fetchUsers() {
       try {
-        const res = await axios.get("http://localhost:5000/users");
+        const res = await axios.get("http://localhost:5000/api/admin/users");
         setUsers(res.data);
       } catch (error) {
         console.log(error);
       }
     }
     fetchUsers();
-  }, []);
+  }, [user, isAdmin, navigate]);
 
   const usersList = users.map((user) => {
     return (
@@ -34,7 +41,7 @@ function UsersList() {
   });
 
   return (
-    <div>
+    <div className="users-list border">
       <h1>Users</h1>
       <div>{usersList}</div>
       <Link to="/users/add">New User</Link>

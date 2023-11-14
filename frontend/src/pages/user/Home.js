@@ -9,12 +9,12 @@ import Cards from "../../components/Cards";
 import BarChart from "../../components/BarChart";
 
 function Home() {
-  const { isAuthenticated, user, loading } = useContext(AuthContext);
+  const { isAuthenticated, user } = useContext(AuthContext);
   const { getServices, services } = useContext(ServicesContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated && !loading) {
+    if (!isAuthenticated) {
       navigate("/signin");
     }
     getServices();
