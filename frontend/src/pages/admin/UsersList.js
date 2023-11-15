@@ -15,13 +15,12 @@ function UsersList() {
     try {
       const res = await axios.get("http://localhost:5000/api/admin/users");
       setUsers(res.data);
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
   }
   useEffect(() => {
-    if (user && isAdmin) {
+    if (user && !isAdmin) {
       navigate("/");
     }
 

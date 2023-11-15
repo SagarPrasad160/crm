@@ -1,0 +1,173 @@
+body {
+  margin: 0;
+  height: 100vh;
+  background-image: url("../utils/auth-form-background.avif");
+  background-size: cover;
+  background-position: center;
+}
+
+.App {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  grid-template-areas:
+    "navbar"
+    "content";
+}
+
+.users-list {
+  background-color: #a8cf99;
+}
+.home,
+.sign-in,
+.sign-up {
+  grid-area: content;
+}
+
+.navbar {
+  grid-area: navbar;
+  max-height: 78px;
+}
+
+.modal-wrapper,
+.navmodal,
+.user-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.show-animation {
+  animation: fadeInScale 0.5s forwards;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hide-modal {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}
+
+.fa-bars {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+}
+
+.profile {
+  border: none;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.profile:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background-color: #a8cf99;
+  transform: scaleY(1);
+  transition: all 0.5s;
+  transform-origin: bottom;
+}
+
+.profile:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background-color: #599f3d;
+  transform: scaleY(0);
+  transition: all 0.5s;
+  transform-origin: bottom;
+}
+
+.card:hover::after {
+  transform: scaleY(1);
+}
+
+.fonts {
+  font-size: 11px;
+}
+
+.social-list {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  padding: 0;
+}
+
+.social-list li {
+  padding: 10px;
+  color: #599f3d;
+  font-size: 19px;
+}
+
+.buttons button:nth-child(1) {
+  border: 1px solid #599f3d !important;
+  color: #599f3d;
+  height: 40px;
+}
+
+.buttons button:nth-child(1):hover {
+  border: 1px solid #599f3d !important;
+  color: #fff;
+  height: 40px;
+  background-color: #599f3d;
+}
+
+.buttons button:nth-child(2) {
+  border: 1px solid #599f3d !important;
+  background-color: #599f3d;
+  color: #fff;
+  height: 40px;
+}
+
+@media (min-width: 880px) {
+  .navmodal {
+    display: none;
+  }
+}
+
+@media (max-width: 880px) {
+  .modal-wrapper {
+    display: none;
+  }
+  h1 {
+    text-align: center;
+  }
+}
+
+@media (max-width: 1024px) {
+  .nav-left,
+  .create-new {
+    display: none;
+  }
+}

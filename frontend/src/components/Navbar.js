@@ -17,16 +17,22 @@ function Navbar() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (showModal) {
+    if (showModal || showNavModal) {
       document.body.style.overflowY = "hidden";
+      document.querySelector(".modal-wrapper")?.classList.add("show-animation");
+      document.querySelector(".navmodal")?.classList.add("show-animation");
     } else {
       document.body.style.overflowY = "scroll";
+      document
+        .querySelector(".modal-wrapper")
+        ?.classList.remove("show-animation");
+      document.querySelector(".navmodal")?.classList.remove("show-animation");
     }
 
     return () => {
       document.body.style.overflowY = "scroll";
     };
-  }, [showModal]);
+  }, [showModal, showNavModal]);
 
   const handleLogout = () => {
     logoutUser();
@@ -37,7 +43,7 @@ function Navbar() {
     <div>
       {showModal && <ServiceModal user={user} setShowModal={setShowModal} />}
       {showNavModal && <NavModal setShowNavModal={setShowNavModal} />}
-      <nav className="navbar navbar-expand-lg bg-dark text-white d-flex justify-content-between">
+      <nav className="navbar navbar-expand-lg bg-dark text-white p-2 d-flex justify-content-between">
         {user && (
           <div className="p-2 d-flex align-items-center">
             <Link to="/" className="navbar-brand text-white">
@@ -63,7 +69,7 @@ function Navbar() {
           </h1>
         )}
         {user && (
-          <div className="d-lg-flex d-none w-md-50 justify-content-between p-2 nav-left">
+          <div className="d-lg-flex d-none w-md-50 justify-content-between p-4 nav-left">
             <input
               className="form-control d-inline w-50"
               placeholder="Enter Service.."
@@ -73,7 +79,7 @@ function Navbar() {
 
             <div className="dropdown">
               <p
-                className="my-auto mr-3 navbar-brand text-white dropdown-toggle"
+                className="my-auto navbar-brand text-white dropdown-toggle"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"

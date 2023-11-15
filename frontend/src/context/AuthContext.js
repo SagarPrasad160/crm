@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
 
     if (token) {
       const decoded = jwtDecode(token);
-      setIsAdmin(decoded.isAdmin || false); // Set isAdmin from the decoded token
+      setIsAdmin(decoded.user.isAdmin || false); // Set isAdmin from the decoded token
     } else {
       setIsAdmin(false);
     }
