@@ -3,26 +3,42 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import AuthContext from "../../context/AuthContext";
+import AddUser from "./AddUser";
 
 function UsersList() {
   const [users, setUsers] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const { user, isAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  async function fetchUsers() {
+    try {
+      const res = await axios.get("http://localhost:5000/api/admin/users");
+      setUsers(res.data);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   useEffect(() => {
     if (user && isAdmin) {
       navigate("/");
     }
-    async function fetchUsers() {
-      try {
-        const res = await axios.get("http://localhost:5000/api/admin/users");
-        setUsers(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
+
     fetchUsers();
-  }, [user, isAdmin, navigate]);
+
+    // Apply styles to hide scroll when showModal is true
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+    }
+
+    // Cleanup: Reset the style when the component unmounts or showModal changes
+    return () => {
+      document.body.style.overflow = "visible";
+    };
+  }, [user, isAdmin, navigate, showModal]);
 
   const usersList = users.map((user) => {
     return (
@@ -30,9 +46,8 @@ function UsersList() {
         <p>Name: {user.name}</p>
         <p>Email: {user.email}</p>
         <p>Address: {user.address}</p>
-        <p>Status: {user.status}</p>
         <p>
-          <Link to={`/users/services/add/${user.id}`}>Add Service</Link>
+          <Link to={`/users/services/add/${user.id}`}>Disable User</Link>
         </p>
         <Link to={`/services/${user.id}`}>View Services</Link>
         <hr />
@@ -43,8 +58,16 @@ function UsersList() {
   return (
     <div className="users-list border">
       <h1>Users</h1>
+      <button
+        className="btn btn-primary text-white"
+        onClick={() => setShowModal(true)}
+      >
+        Add User
+      </button>
       <div>{usersList}</div>
-      <Link to="/users/add">New User</Link>
+      {showModal && (
+        <AddUser fetchUsers={fetchUsers} setShowModal={setShowModal} />
+      )}
     </div>
   );
 }

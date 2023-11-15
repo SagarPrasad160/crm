@@ -1,19 +1,21 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
+import { GiArchiveRegister } from "react-icons/gi";
 
 import axios from "axios";
 
-function AddUser() {
+function AddUser(props) {
   const [userData, setUserData] = useState({
     name: "",
     email: "",
+    password: "",
+    confirmPassword: "",
     address: "",
-    status: "",
   });
 
-  const navigate = useNavigate();
+  const { fetchUsers, setShowModal } = props;
 
-  const { name, email, address, status } = userData;
+  const { name, email, address, password, confirmPassword } = userData;
 
   const handleChange = (e) => {
     setUserData({
@@ -22,60 +24,131 @@ function AddUser() {
     });
   };
 
+  const registerUserAdmin = async (formData) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      await axios.post(
+        "http://localhost:5000/api/auth/create",
+        formData,
+        config
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/users", {
-        name,
-        email,
-        address,
-        status,
+      await registerUserAdmin(userData);
+      await fetchUsers();
+
+      setUserData({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        address: "",
       });
-      navigate("/users");
+      setShowModal(false);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div>
-      <h1>Create A New User</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className="user-modal text-white row">
+      <form
+        className="mt-4 auth-form mx-auto bg-dark rounded-3 shadow-lg p-3 col-md-6 col-lg-6"
+        onSubmit={handleSubmit}
+      >
+        <h1>Create new User</h1>
+        <button
+          className="btn btn-danger hide-modal"
+          onClick={() => setShowModal(false)}
+        >
+          <i className="fa-solid fa-xmark"></i>
+        </button>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Name
+          </label>
           <input
             type="text"
-            placeholder="user name"
+            placeholder="Name"
             name="name"
+            id="name"
+            className="form-control"
             value={name}
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
           <input
             type="email"
-            placeholder="email"
+            placeholder="Email"
             name="email"
+            id="email"
+            className="form-control"
             value={email}
             onChange={handleChange}
           />
         </div>
-        <div>
-          <textarea
-            placeholder="address"
-            name="address"
-            value={address}
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            id="password"
+            className="form-control"
+            value={password}
             onChange={handleChange}
           />
         </div>
-        <div>
-          <select name="status" value={status} onChange={handleChange}>
-            <option value="">-- Select Status --</option>
-            <option>All Clear</option>
-            <option>Pending</option>
-            <option>Warning</option>
-          </select>
+        <div className="mb-3">
+          <label htmlFor="confirmPassword" className="form-label">
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            name="confirmPassword"
+            className="form-control"
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={handleChange}
+          />
         </div>
-        <button type="submit">Create</button>
+        <div className="mb-3">
+          <label htmlFor="address" className="form-label">
+            Address
+          </label>
+          <textarea
+            className="form-control"
+            value={address}
+            name="address"
+            onChange={handleChange}
+            id="address"
+          ></textarea>
+        </div>
+        <div className="d-flex flex-wrap justify-content-center">
+          <button
+            className="btn btn-primary m-1 text-white my-auto"
+            type="submit"
+          >
+            <GiArchiveRegister className="fs-4" /> Create User
+          </button>
+        </div>
       </form>
     </div>
   );

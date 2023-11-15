@@ -53,6 +53,7 @@ function Signup() {
     try {
       await registerUser(formData);
       toast.success("Account Created Successfully!");
+      navigate("/");
     } catch (error) {
       toast.warning("Something went wrong!");
       console.log(error);

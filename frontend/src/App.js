@@ -33,7 +33,7 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/billing" element={<Billing />} />
-              <Route path="/users" element={<UsersList />} />
+              <Route path="/admin/users" element={<UsersList />} />
             </Routes>
             <ToastContainer />
           </div>

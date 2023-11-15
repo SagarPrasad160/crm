@@ -63,7 +63,7 @@ function Navbar() {
           </h1>
         )}
         {user && (
-          <div className="d-lg-flex d-none w-50 justify-content-between p-2 nav-left">
+          <div className="d-lg-flex d-none w-md-50 justify-content-between p-2 nav-left">
             <input
               className="form-control d-inline w-50"
               placeholder="Enter Service.."

@@ -30,7 +30,8 @@ body {
 }
 
 .modal-wrapper,
-.navmodal {
+.navmodal,
+.user-modal {
   position: absolute;
   top: 0;
   left: 0;
