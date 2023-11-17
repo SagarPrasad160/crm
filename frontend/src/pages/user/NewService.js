@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -6,14 +6,16 @@ import ServicesContext from "../../context/ServicesContext";
 
 import { toast } from "react-toastify";
 
+import axios from "axios";
+
 function NewService() {
   const [service, setService] = useState({
     type: "",
-    charge: "",
     desc: "",
   });
-  const { type, charge, desc } = service;
-  const { addService } = useContext(ServicesContext);
+  const [serviceLabels, setServiceLabels] = useState([]);
+  const { type, desc } = service;
+  const { addUserService } = useContext(ServicesContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,12 +25,33 @@ function NewService() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    addService(service);
-    toast.success("Service added successfully!");
-    navigate("/");
+    try {
+      await addUserService(service, true);
+      toast.success("Service added successfully!");
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const fetchServicesData = useCallback(() => {
+    return async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:5000/api/admin/services/data"
+        );
+        setServiceLabels(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    fetchServicesData();
+  }, [fetchServicesData]);
 
   return (
     <div className="m-5">
@@ -46,22 +69,12 @@ function NewService() {
             onChange={handleChange}
           >
             <option value="">-- Select a Service Type --</option>
-            <option>Web Design</option>
-            <option>SEO</option>
-            <option>Cyber Security</option>
-            <option>Graphic Design</option>
+            {serviceLabels.map((service) => (
+              <option>
+                {service.type} ${service.charge}
+              </option>
+            ))}
           </select>
-        </div>
-        <div className="mb-2">
-          <label className="form-label">Charges in $ </label>
-          <input
-            type="number"
-            name="charge"
-            className="form-control"
-            placeholder="Price"
-            value={charge}
-            onChange={handleChange}
-          />
         </div>
         <div className="mb-2">
           <label className="form-label">Desciption</label>

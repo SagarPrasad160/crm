@@ -10,20 +10,20 @@ import BarChart from "../../components/BarChart";
 
 function Home() {
   const { isAuthenticated, user } = useContext(AuthContext);
-  const { getServices, services } = useContext(ServicesContext);
+  const { getUserServices, services } = useContext(ServicesContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/signin");
     }
-    getServices();
+    getUserServices();
     //eslint-disable-next-line
   }, [isAuthenticated]);
 
   if (user) {
     return (
-      <div className="home container">
+      <div className="home container mt-5">
         <Cards />
         <div className="row p-4 row-cols-1 row-cols-md-2">
           <div className="col bg-dark rounded-3 text-white my-auto shadow">
@@ -39,8 +39,8 @@ function Home() {
                   >
                     <div className="d-flex w-100 justify-content-between">
                       <h5 className="mb-1">{service.type}</h5>
-                      <span className="bg-primary rounded-circle p-1">
-                        ${service.charge}
+                      <span className="bg-primary rounded-2 p-2">
+                        {service.status}
                       </span>
                     </div>
                     <p className="mb-1">{service.desc}</p>

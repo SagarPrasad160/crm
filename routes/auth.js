@@ -21,6 +21,11 @@ router.post(
       return true;
     }),
     body("address").notEmpty().withMessage("Address is required"),
+    body("phone")
+      .notEmpty()
+      .withMessage("Phone is required")
+      .isMobilePhone()
+      .withMessage("Invalid phone number"),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -28,7 +33,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password, address } = req.body;
+    const { name, email, phone, password, address } = req.body;
 
     try {
       const [existingUsers] = await pool.execute(
@@ -42,8 +47,8 @@ router.post(
 
       const hashedPassword = await bcrypt.hash(password, 10);
       const [user] = await pool.execute(
-        "INSERT INTO users (`name`, `email`, `password`, `address`, `createdAt`, `updatedAt`) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)",
-        [name, email, hashedPassword, address]
+        "INSERT INTO users (`name`, `email`,`phone`, `password`, `address`, `createdAt`, `updatedAt`) VALUES (?, ?, ?, ?,?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)",
+        [name, email, phone, hashedPassword, address]
       );
 
       const payload = {

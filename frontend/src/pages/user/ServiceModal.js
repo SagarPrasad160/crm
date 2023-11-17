@@ -1,18 +1,20 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 
 import ServicesContext from "../../context/ServicesContext";
 
 import { toast } from "react-toastify";
 
+import axios from "axios";
+
 function ServiceModal({ setShowModal, user }) {
   const [service, setService] = useState({
     type: "",
-    charge: "",
     desc: "",
   });
-  const { type, charge, desc } = service;
+  const [serviceLabels, setServiceLabels] = useState([]);
+  const { type, desc } = service;
 
-  const { addService } = useContext(ServicesContext);
+  const { addUserService } = useContext(ServicesContext);
 
   const handleChange = (e) => {
     setService({
@@ -23,10 +25,30 @@ function ServiceModal({ setShowModal, user }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addService(service);
+    addUserService({ ...service, user: user?.id }, true);
     setShowModal(false);
     toast.success("Service Added Successfully!");
   };
+
+  const fetchServicesData = useCallback(async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/api/admin/services/data"
+      );
+      setServiceLabels(res.data);
+    } catch (error) {
+      console.error("Error fetching service data:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchServicesData();
+    };
+
+    fetchData();
+  }, [fetchServicesData]);
+
   return (
     <div className="modal-wrapper">
       <button
@@ -41,28 +63,16 @@ function ServiceModal({ setShowModal, user }) {
           <div className="mb-2">
             <label className="form-label text-white">Select a Service</label>
             <select
-              className="form-control"
+              className="form-select form-select-lg"
               value={type}
               name="type"
               onChange={handleChange}
             >
               <option value="">-- Select a Service Type --</option>
-              <option>Web Design</option>
-              <option>SEO</option>
-              <option>Cyber Security</option>
-              <option>Graphic Design</option>
+              {serviceLabels.map((service) => (
+                <option key={service.type}>{service.type}</option>
+              ))}
             </select>
-          </div>
-          <div className="mb-2">
-            <label className="text-white">Charges in $ </label>
-            <input
-              type="number"
-              name="charge"
-              value={charge || ""}
-              onChange={handleChange}
-              className="form-control"
-              placeholder="Price"
-            />
           </div>
           <div className="mb-2">
             <label className="form-label text-white">Desciption</label>
@@ -78,7 +88,7 @@ function ServiceModal({ setShowModal, user }) {
             className="btn btn-primary text-white w-100 rounded-3 mt-2"
             type="submit"
           >
-            <i className="fa-solid fa-plus"></i> Add Service
+            Request Service
           </button>
         </form>
       </div>

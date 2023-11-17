@@ -40,7 +40,7 @@ function Billing() {
   }, [isAuthenticated, user, navigate, servicesData]);
 
   return (
-    <div className="container p-5">
+    <div className="container p-5 mt-5">
       <div className="row">
         <div className="col">
           <table className="table table-border table-responsive table-dark rounded-3 table-striped table-hover caption-top">

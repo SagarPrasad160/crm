@@ -36,6 +36,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const getUser = async (userId) => {
+    try {
+      const userRes = await axios.get(
+        "http://localhost:5000/api/users/" + userId
+      );
+      return userRes.data[0];
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const registerFail = (payload) => {
     localStorage.removeItem("token");
     setAuth({
@@ -139,6 +150,7 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated: auth.isAuthenticated,
         user: auth.user,
         isAdmin,
+        getUser,
         errors: auth.errors,
         registerSuccess,
         registerUser,

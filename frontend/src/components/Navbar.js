@@ -12,7 +12,7 @@ import NavModal from "./NavModal";
 function Navbar() {
   const [showModal, setShowModal] = useState(false);
   const [showNavModal, setShowNavModal] = useState(false);
-  const { user, logoutUser } = useContext(AuthContext);
+  const { user, isAdmin, logoutUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -47,16 +47,21 @@ function Navbar() {
         {user && (
           <div className="p-2 d-flex align-items-center">
             <Link to="/" className="navbar-brand text-white">
-              <i className="fa-solid fa-house"></i> Dashboard
+              <i className="fa-solid fa-house"></i>
+              {isAdmin ? "" : "Dashboard"}
             </Link>
-            <div className="d-lg-flex d-none pt-1">
-              <button
-                className="btn btn-primary create-new text-white mb-1"
-                onClick={() => setShowModal(true)}
-              >
-                <i className="fa-solid fa-plus"></i> Create new Service
-              </button>
-            </div>
+            {isAdmin ? (
+              <h3>Admin Panel</h3>
+            ) : (
+              <div className="d-lg-flex d-none pt-1">
+                <button
+                  className="btn btn-primary create-new text-white mb-1"
+                  onClick={() => setShowModal(true)}
+                >
+                  <i className="fa-solid fa-plus"></i> Create new Service
+                </button>
+              </div>
+            )}
             <i
               className="fa-solid fa-bars fs-4 d-flex d-lg-none"
               onClick={() => setShowNavModal(true)}

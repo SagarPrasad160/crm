@@ -5,6 +5,28 @@ const pool = require("../../db"); // Import the database connection
 const bcrypt = require("bcryptjs");
 
 const requireAdminAuth = require("../../middlewares/requireAdminAuth");
+const requireAuth = require("../../middlewares/requireAuth");
+
+router.get("/services/data", requireAuth, async (req, res) => {
+  try {
+    const [services] = await pool.execute("SELECT type FROM services_data");
+    res.json(services);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server Error");
+  }
+});
+
+// assign a service
+// PUT a service
+router.post("/services", requireAuth, async (req, res) => {
+  const { name, email, address, password } = req.body;
+  try {
+    
+  } catch (error) {
+    
+  }
+});
 
 //@route  GET /api/users
 //@des get all users

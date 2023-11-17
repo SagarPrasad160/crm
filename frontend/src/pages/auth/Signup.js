@@ -61,9 +61,9 @@ function Signup() {
   };
 
   return (
-    <div className="sign-in text-white">
+    <div className="sign-in mt-5 text-white">
       <form
-        className="mt-4 auth-form mx-auto bg-dark rounded-3 shadow-lg p-3 col-md-6 col-lg-6"
+        className="mt-5 auth-form mx-auto bg-dark rounded-3 shadow-lg p-3 col-md-6 col-lg-6"
         onSubmit={handleSubmit}
       >
         <div className="mb-3">

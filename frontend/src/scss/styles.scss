@@ -1,9 +1,8 @@
 body {
   margin: 0;
   height: 100vh;
-  background-image: url("../utils/auth-form-background.avif");
-  background-size: cover;
-  background-position: center;
+  background: url("../utils/auth-form-background.avif") no-repeat center/cover;
+  background-attachment: fixed;
 }
 
 .App {
@@ -15,9 +14,6 @@ body {
     "content";
 }
 
-.users-list {
-  background-color: #a8cf99;
-}
 .home,
 .sign-in,
 .sign-up {
@@ -25,6 +21,11 @@ body {
 }
 
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
   grid-area: navbar;
   max-height: 78px;
 }
@@ -39,7 +40,7 @@ body {
   width: 100%;
   overflow-y: hidden;
   background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1;
+  z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -3,11 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import AuthContext from "../../context/AuthContext";
-import AddUser from "./AddUser";
 
 function UsersList() {
   const [users, setUsers] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+
   const { user, isAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -25,48 +24,54 @@ function UsersList() {
     }
 
     fetchUsers();
-
-    // Apply styles to hide scroll when showModal is true
-    if (showModal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "visible";
-    }
-
-    // Cleanup: Reset the style when the component unmounts or showModal changes
-    return () => {
-      document.body.style.overflow = "visible";
-    };
-  }, [user, isAdmin, navigate, showModal]);
+  }, [user, isAdmin, navigate]);
 
   const usersList = users.map((user) => {
     return (
-      <div key={user.id}>
-        <p>Name: {user.name}</p>
-        <p>Email: {user.email}</p>
-        <p>Address: {user.address}</p>
-        <p>
-          <Link to={`/users/services/add/${user.id}`}>Disable User</Link>
-        </p>
-        <Link to={`/services/${user.id}`}>View Services</Link>
-        <hr />
-      </div>
+      <li
+        className="list-group-item border-0 bg-dark mb-3 shadow"
+        key={user.id}
+      >
+        <div className="card bg-dark border-0 text-white">
+          <div className="card-body">
+            <h5 className="card-title">{user.name}</h5>
+            <h6 className="card-subtitle mb-2 text-body-white">{user.email}</h6>
+            <p className="card-text">{user.address}</p>
+            <Link
+              to={`/admin/users/${user.id}`}
+              className="card-link btn btn-primary text-white"
+            >
+              View
+            </Link>
+            <Link
+              to={`/services/${user.id}`}
+              className="card-link btn btn-danger text-white"
+            >
+              Disable User
+            </Link>
+          </div>
+        </div>
+      </li>
     );
   });
 
   return (
-    <div className="users-list border">
-      <h1>Users</h1>
-      <button
-        className="btn btn-primary text-white"
-        onClick={() => setShowModal(true)}
-      >
-        Add User
-      </button>
-      <div>{usersList}</div>
-      {showModal && (
-        <AddUser fetchUsers={fetchUsers} setShowModal={setShowModal} />
-      )}
+    <div className="users-list mt-5 container text-white">
+      <div className="row">
+        <div className="col-md-3">
+          <Link
+            className="btn btn-primary text-white mt-5"
+            to="/admin/users/add"
+          >
+            Add User
+          </Link>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col col-md-6">
+          <ul className="list-group mt-5">{usersList}</ul>
+        </div>
+      </div>
     </div>
   );
 }

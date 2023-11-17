@@ -1,4 +1,10 @@
-import { createContext, useState, useContext, useEffect } from "react";
+import {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  useCallback,
+} from "react";
 import axios from "axios";
 import AuthContext from "./AuthContext";
 
@@ -10,23 +16,53 @@ export function ServicesProvider({ children }) {
     error: null,
   });
 
+  const fetchUserServices = useCallback(async (userId) => {
+    try {
+      const servicesRes = await axios.get(
+        "http://localhost:5000/api/users/" + userId + "/services"
+      );
+      return servicesRes.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   const [edit, setEdit] = useState({ isEdit: false, current: null });
 
   const { user } = useContext(AuthContext);
 
-  const addService = async (service) => {
+  const getUserService = async (userId, serviceId) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/users/${userId}/services/${serviceId}`
+      );
+      return res.data[0];
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addUserService = async (service, isRequest) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
     try {
-      await axios.post(
-        `http://localhost:5000/api/users/${user.id}/services`,
-        { ...service, user: user.id },
-        config
-      );
-      getServices();
+      if (isRequest) {
+        await axios.post(
+          `http://localhost:5000/api/users/request/${user.id}/services`,
+          { ...service },
+          config
+        );
+        getUserServices();
+      } else {
+        await axios.post(
+          `http://localhost:5000/api/users/assign/${user.id}/services`,
+          { ...service },
+          config
+        );
+      }
     } catch (error) {
       console.log(error);
       setServices({
@@ -36,7 +72,28 @@ export function ServicesProvider({ children }) {
     }
   };
 
-  const getServices = async () => {
+  const updateUserService = async (service, serviceId) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      await axios.post(
+        `http://localhost:5000/api/users/${user.id}/services/update/${serviceId}`,
+        { ...service },
+        config
+      );
+    } catch (error) {
+      console.log(error);
+      setServices({
+        ...services,
+        error,
+      });
+    }
+  };
+
+  const getUserServices = async () => {
     try {
       if (user) {
         const res = await axios.get(
@@ -55,7 +112,7 @@ export function ServicesProvider({ children }) {
     }
   };
 
-  const deleteService = async (id) => {
+  const deleteUserService = async (id) => {
     try {
       await axios.delete(`/api/contacts/${id}`);
       setServices({
@@ -73,7 +130,7 @@ export function ServicesProvider({ children }) {
   };
 
   useEffect(() => {
-    getServices();
+    getUserServices();
     //eslint-disable-next-line
   }, [user]);
 
@@ -81,9 +138,12 @@ export function ServicesProvider({ children }) {
     <ServicesContext.Provider
       value={{
         services,
-        addService,
-        getServices,
-        deleteService,
+        addUserService,
+        fetchUserServices,
+        getUserService,
+        getUserServices,
+        updateUserService,
+        deleteUserService,
         setEdit,
         edit,
       }}
