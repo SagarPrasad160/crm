@@ -1,10 +1,10 @@
 import { useContext, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 
 import { CiLogout } from "react-icons/ci";
 import { RiBillFill } from "react-icons/ri";
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaUsers } from "react-icons/fa";
 
 import ServiceModal from "../pages/user/ServiceModal";
 import NavModal from "./NavModal";
@@ -45,13 +45,34 @@ function Navbar() {
       {showNavModal && <NavModal setShowNavModal={setShowNavModal} />}
       <nav className="navbar navbar-expand-lg bg-dark text-white p-2 d-flex justify-content-between">
         {user && (
-          <div className="p-2 d-flex align-items-center">
+          <div className="p-2 d-md-flex align-items-center w-50">
             <Link to="/" className="navbar-brand text-white">
-              <i className="fa-solid fa-house"></i>
-              {isAdmin ? "" : "Dashboard"}
+              {isAdmin ? (
+                ""
+              ) : (
+                <>
+                  <i className="fa-solid fa-house"></i> Dashboard
+                </>
+              )}
             </Link>
             {isAdmin ? (
-              <h3>Admin Panel</h3>
+              <div className="w-50 d-md-flex justify-content-evenly align-items-center">
+                <Link to="/admin" className="nav-link">
+                  <span className="fs-4">Admin Panel</span>
+                </Link>
+                <NavLink
+                  to="/admin/users"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "btn btn-primary text-white"
+                      : "btn btn-secondary text-white"
+                  }
+                >
+                  <FaUsers /> Users
+                </NavLink>
+              </div>
             ) : (
               <div className="d-lg-flex d-none pt-1">
                 <button

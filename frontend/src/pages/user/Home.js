@@ -8,8 +8,32 @@ import Spinner from "../../components/Spinner";
 import Cards from "../../components/Cards";
 import BarChart from "../../components/BarChart";
 
+const cardsData = [
+  {
+    data: 3500,
+    progress: "+15%",
+    desc: "Total Users",
+  },
+  {
+    data: 120,
+    progress: "-5%",
+    desc: "Active Users",
+  },
+  {
+    data: 250,
+    progress: "+20%",
+    desc: "New Users",
+  },
+  {
+    data: 500,
+    progress: "+10%",
+    desc: "Registered Users",
+  },
+  // Add more card objects as needed
+];
+
 function Home() {
-  const { isAuthenticated, user } = useContext(AuthContext);
+  const { isAuthenticated, user, isAdmin } = useContext(AuthContext);
   const { getUserServices, services } = useContext(ServicesContext);
   const navigate = useNavigate();
 
@@ -17,14 +41,17 @@ function Home() {
     if (!isAuthenticated) {
       navigate("/signin");
     }
+    if (isAdmin) {
+      navigate("/admin");
+    }
     getUserServices();
     //eslint-disable-next-line
-  }, [isAuthenticated]);
+  }, [isAuthenticated, isAdmin]);
 
   if (user) {
     return (
       <div className="home container mt-5">
-        <Cards />
+        <Cards cards={cardsData} />
         <div className="row p-4 row-cols-1 row-cols-md-2">
           <div className="col bg-dark rounded-3 text-white my-auto shadow">
             <BarChart />

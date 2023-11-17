@@ -74,8 +74,8 @@ function AssignService() {
     return <Spinner />;
   } else {
     return (
-      <div className="container mt-5 text-white">
-        <form className="mt-5 bg-dark rounded-3 p-4" onSubmit={handleSubmit}>
+      <div className="container text-white p-5">
+        <form className="bg-dark rounded-3 p-4" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label" htmlFor="name">
               Name

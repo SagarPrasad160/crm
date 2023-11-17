@@ -63,10 +63,10 @@ function AddUser(props) {
   };
 
   return (
-    <div className="container text-white mt-5">
+    <div className="container text-white p-5">
       <div className="row">
         <div className="col">
-          <form className="mt-5 bg-dark p-4 rounded-3" onSubmit={handleSubmit}>
+          <form className="bg-dark p-4 rounded-3" onSubmit={handleSubmit}>
             <h1>Create new User</h1>
             <div className="mb-3">
               <label htmlFor="email" className="form-label">

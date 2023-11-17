@@ -1,12 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import axios from "axios";
+import { FaPlus } from "react-icons/fa";
 
 import AuthContext from "../../context/AuthContext";
 
 function UsersList() {
   const [users, setUsers] = useState([]);
-
   const { user, isAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -18,6 +19,7 @@ function UsersList() {
       console.log(error);
     }
   }
+
   useEffect(() => {
     if (user && !isAdmin) {
       navigate("/");
@@ -26,50 +28,62 @@ function UsersList() {
     fetchUsers();
   }, [user, isAdmin, navigate]);
 
-  const usersList = users.map((user) => {
-    return (
-      <li
-        className="list-group-item border-0 bg-dark mb-3 shadow"
-        key={user.id}
-      >
-        <div className="card bg-dark border-0 text-white">
-          <div className="card-body">
-            <h5 className="card-title">{user.name}</h5>
-            <h6 className="card-subtitle mb-2 text-body-white">{user.email}</h6>
-            <p className="card-text">{user.address}</p>
-            <Link
-              to={`/admin/users/${user.id}`}
-              className="card-link btn btn-primary text-white"
-            >
-              View
-            </Link>
-            <Link
-              to={`/services/${user.id}`}
-              className="card-link btn btn-danger text-white"
-            >
-              Disable User
-            </Link>
-          </div>
-        </div>
-      </li>
-    );
-  });
+  const usersTable = (
+    <div className="table-responsive">
+      <table className="table table-dark table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Address</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user, index) => (
+            <tr key={user.id}>
+              <th scope="row">{index + 1}</th>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.address}</td>
+              <td>
+                <Link
+                  to={`/admin/users/${user.id}`}
+                  className="btn btn-primary text-white me-2"
+                >
+                  View
+                </Link>
+                <Link
+                  to={`/services/${user.id}`}
+                  className="btn btn-danger text-white"
+                >
+                  Disable User
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 
   return (
-    <div className="users-list mt-5 container text-white">
+    <div className="users-list container p-5 text-white">
       <div className="row">
         <div className="col-md-3">
-          <Link
-            className="btn btn-primary text-white mt-5"
-            to="/admin/users/add"
-          >
-            Add User
+          <Link className="btn btn-primary text-white" to="/admin/users/add">
+            <FaPlus className="text-white mb-1" /> <span>Add User</span>
           </Link>
         </div>
       </div>
-      <div className="row">
-        <div className="col col-md-6">
-          <ul className="list-group mt-5">{usersList}</ul>
+      <div className="row mt-5">
+        <div className="col bg-dark rounded-2">
+          {users.length > 0 ? (
+            usersTable
+          ) : (
+            <p>No users available. Add a user to the list.</p>
+          )}
         </div>
       </div>
     </div>

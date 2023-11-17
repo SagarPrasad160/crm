@@ -14,6 +14,7 @@ import AddUser from "./pages/admin/AddUser";
 import UserProfile from "./pages/admin/UserProfile";
 import AssignService from "./pages/admin/AssignService";
 import ViewService from "./pages/admin/ViewService";
+import Dashboard from "./pages/admin/Dashboard";
 
 import { AuthProvider } from "./context/AuthContext";
 import { ServicesProvider } from "./context/ServicesContext";
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/billing" element={<Billing />} />
+                <Route path="/admin" element={<Dashboard />} />
                 <Route path="/admin/users" element={<UsersList />} />
                 <Route path="/admin/users/add" element={<AddUser />} />
                 <Route path="/admin/users/:userId" element={<UserProfile />} />

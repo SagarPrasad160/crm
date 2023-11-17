@@ -7,7 +7,7 @@ import AuthContext from "../../context/AuthContext";
 import { BsFacebook, BsGoogle, BsInstagram, BsLinkedin } from "react-icons/bs";
 
 function Profile() {
-  const { user, isAuthenticated } = useContext(AuthContext);
+  const { user, isAuthenticated, isAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +33,7 @@ function Profile() {
 
               <div className="text-center mt-3">
                 <span className="bg-secondary p-1 px-4 rounded text-white">
-                  Pro
+                  {isAdmin ? "Admin" : "User"}
                 </span>
                 <h5 className="mt-2 mb-0">{user.name}</h5>
                 <span>{user.email}</span>

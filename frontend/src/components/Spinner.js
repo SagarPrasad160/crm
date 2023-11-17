@@ -1,4 +1,4 @@
-import spinner from "../utils/spinner.gif";
+import spinner from "../utils/spinner-sq.gif";
 
 const Spinner = () => (
   <img

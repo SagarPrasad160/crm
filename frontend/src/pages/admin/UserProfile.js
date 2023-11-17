@@ -34,7 +34,7 @@ function UserProfile() {
   } else {
     return (
       <div className="container mt-5">
-        <div className="row mt-5 d-flex justify-content-center">
+        <div className="row  d-flex justify-content-center">
           <div className="col-md-7">
             <div className="card profile bg-dark text-white p-3 py-4">
               <div className="text-center">
