@@ -6,6 +6,8 @@ import { FaPlus } from "react-icons/fa";
 
 import AuthContext from "../../context/AuthContext";
 
+import Spinner from "../../components/Spinner";
+
 function UsersList() {
   const [users, setUsers] = useState([]);
   const { user, isAdmin } = useContext(AuthContext);
@@ -68,26 +70,30 @@ function UsersList() {
     </div>
   );
 
-  return (
-    <div className="users-list container p-5 text-white">
-      <div className="row">
-        <div className="col-md-3">
-          <Link className="btn btn-primary text-white" to="/admin/users/add">
-            <FaPlus className="text-white mb-1" /> <span>Add User</span>
-          </Link>
+  if (!user || !users.length) {
+    return <Spinner />;
+  } else {
+    return (
+      <div className="users-list container p-5 text-white">
+        <div className="row">
+          <div className="col-md-3">
+            <Link className="btn btn-primary text-white" to="/admin/users/add">
+              <FaPlus className="text-white mb-1" /> <span>Add User</span>
+            </Link>
+          </div>
+        </div>
+        <div className="row mt-5">
+          <div className="col bg-dark rounded-2">
+            {users.length > 0 ? (
+              usersTable
+            ) : (
+              <p>No users available. Add a user to the list.</p>
+            )}
+          </div>
         </div>
       </div>
-      <div className="row mt-5">
-        <div className="col bg-dark rounded-2">
-          {users.length > 0 ? (
-            usersTable
-          ) : (
-            <p>No users available. Add a user to the list.</p>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default UsersList;

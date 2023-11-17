@@ -1,4 +1,5 @@
 import Cards from "../../components/Cards";
+import Accordian from "../../components/Accordian";
 
 // Updated sample data for cards
 const cardsData = [
@@ -28,7 +29,16 @@ const cardsData = [
 function Dashboard() {
   return (
     <div className="container mt-5">
-      <Cards cards={cardsData} />
+      <div className="row">
+        <div className="col">
+          <Cards cards={cardsData} />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <Accordian />
+        </div>
+      </div>
     </div>
   );
 }
