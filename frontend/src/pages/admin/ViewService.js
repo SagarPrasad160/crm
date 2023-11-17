@@ -88,7 +88,7 @@ function ViewService() {
           paymentCycle: "",
           desc: "",
         });
-        navigate(`/admin/users/${userId}/services`);
+        navigate(`/admin/users/${userId}`);
       } catch (error) {
         console.log(error);
       }
