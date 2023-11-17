@@ -1,5 +1,5 @@
 import Cards from "../../components/Cards";
-import Accordian from "../../components/Accordian";
+import Accordion from "../../components/Accordion";
 
 // Updated sample data for cards
 const cardsData = [
@@ -36,7 +36,7 @@ function Dashboard() {
       </div>
       <div className="row">
         <div className="col">
-          <Accordian />
+          <Accordion />
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ function Accordion() {
       <div className="row">
         <div className="col-md-6">
           <div className="accordion" id="accordionExample">
-            <div className="item bg-dark">
+            <div className="item rounded-3 bg-dark">
               <div className="item-header" id="headingOne">
                 <h2 className="mb-0">
                   <button
@@ -41,7 +41,7 @@ function Accordion() {
                 </div>
               </div>
             </div>
-            <div className="item bg-dark">
+            <div className="item rounded-3 bg-dark">
               <div className="item-header" id="headingTwo">
                 <h2 className="mb-0">
                   <button
@@ -82,7 +82,7 @@ function Accordion() {
         </div>
         <div className="col-md-6">
           <div className="accordion" id="accordionExample">
-            <div className="item bg-dark">
+            <div className="item rounded-3 bg-dark">
               <div className="item-header" id="headingThree">
                 <h2 className="mb-0">
                   <button
@@ -119,7 +119,7 @@ function Accordion() {
                 </div>
               </div>
             </div>
-            <div className="item bg-dark">
+            <div className="item rounded-3 bg-dark">
               <div className="item-header" id="headingFour">
                 <h2 className="mb-0">
                   <button
